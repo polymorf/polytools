@@ -22,11 +22,11 @@ def pkcs7_pad(cleartext_data):
 def pkcs7_unpad(cleartext_data):
 	pad_len=ord(cleartext_data[-1])
 	if pad_len == 0 or pad_len > 0x10:
-		error("bad pkcs7 padding")
+		#error("bad pkcs7 padding")
 		return None
 	for i in range(pad_len):
 		if ord(cleartext_data[-1]) != pad_len:
-			error("bad pkcs7 padding")
+			#error("bad pkcs7 padding")
 			return None
 		cleartext_data=cleartext_data[:-1]
 	return cleartext_data
