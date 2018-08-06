@@ -1,6 +1,22 @@
 # coding: utf8
 import string
 
+
+"""
+0x00000000 │ 6a 4d a7 28 de d1 46 11 96 51 fc 35 cb d4 a9 29 │ jM.(..F..Q.5...) │
+"""
+def load_hexdump(data):
+	out=""
+	for line in data.split("\n"):
+		if "│" not in line:
+			continue
+		hex_data = line.split("│")[1]
+		hex_data = hex_data.replace(" ","")
+		hex_data = hex_data.replace("\x1b[0m","")
+		hex_data = hex_data.replace("\x1b[36;1m","")
+		out+=hex_data.decode("hex")
+	return out
+
 def hexdump(buf,title="",color=6,start=0):
 	color_start = "\033[3%d;1m" % color
 	color_stop = "\033[0m"
@@ -27,3 +43,13 @@ def hexdump(buf,title="",color=6,start=0):
 		out+=" %s│%s\n" % (color_start,color_stop)
 	out+=("           %s└"+"─"*49+"┴"+"─"*18+"┘%s") % (color_start,color_stop)
 	print out
+	return out
+
+if __name__ == "__main__":
+	import os
+	data = os.urandom(0x100)
+	hexdump_data = hexdump(data)
+	if load_hexdump(hexdump_data) == data:
+		print "ok"
+
+
