@@ -43,13 +43,3 @@ def hexdump(buf,title="",color=6,start=0):
 		out+=" %s│%s\n" % (color_start,color_stop)
 	out+=("           %s└"+"─"*49+"┴"+"─"*18+"┘%s") % (color_start,color_stop)
 	print out
-	return out
-
-if __name__ == "__main__":
-	import os
-	data = os.urandom(0x100)
-	hexdump_data = hexdump(data)
-	if load_hexdump(hexdump_data) == data:
-		print "ok"
-
-
