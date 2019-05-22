@@ -42,4 +42,4 @@ def hexdump(buf,title="",color=6,start=0):
 				out+=" "
 		out+=" %s│%s\n" % (color_start,color_stop)
 	out+=("           %s└"+"─"*49+"┴"+"─"*18+"┘%s") % (color_start,color_stop)
-	print out
+	print(out)

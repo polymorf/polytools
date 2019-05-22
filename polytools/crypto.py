@@ -1,5 +1,5 @@
-from log import *
-from print_obj import print_obj
+from polytools.log import *
+from polytools.print_obj import print_obj
 
 def xor(key,data):
 	out=""

@@ -1,4 +1,4 @@
-from crypto import xor
+from polytools.crypto import xor
 
 def to_bytes(val, byte_len):
 	hex_val = hex(val).replace("0x","").replace("L","")
