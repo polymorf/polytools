@@ -28,14 +28,20 @@ def hexdump(buf,title="",color=6,start=0):
 		out+="%s0x%08x │ %s" % (color_start,i+start,color_stop)
 		for j in range(16):
 			if i+j < len(buf):
-				out+="%02x " % (ord(buf[i+j]))
+				if type(buf) == bytes:
+					out+="%02x " % (buf[i+j])
+				else:
+					out+="%02x " % (ord(buf[i+j]))
 			else:
 				out+="   "
 		out+="%s│ %s" % (color_start,color_stop)
 		for j in range(16):
 			if i+j < len(buf):
-				if buf[i+j] in string.printable and buf[i+j] not in "\t\n\r\x0b\x0c":
-					out+="%s" % (buf[i+j])
+				char = buf[i+j]
+				if type(char) == int:
+					char = chr(char)
+				if char in string.printable and char not in "\t\n\r\x0b\x0c":
+					out+="%s" % (char)
 				else:
 					out+="."
 			else:
