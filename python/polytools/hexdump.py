@@ -14,8 +14,9 @@ def load_hexdump(data):
 		out+=hex_data.decode("hex")
 	return out
 
-def hexdump(buf, title="", color=6, start=0, remove_dup=True):
+def hexdump(buf, title="", color=6, start=0, remove_dup=True, hl_addr=None):
 	color_start = "\033[3%d;1m" % color
+	hl_color_start = "\033[3%d;41;1m" % color
 	color_start_no_bold = "\033[0m\033[3%dm" % color
 	color_stop = "\033[0m"
 
@@ -41,7 +42,10 @@ def hexdump(buf, title="", color=6, start=0, remove_dup=True):
 					continue
 				else:
 					last_is_dup=False
-		out+="%s0x%08x │ %s" % (color_start,i+start,color_stop)
+		if hl_addr == i+start:
+			out+="%s0x%08x%s%s │ %s" % (hl_color_start,i+start,color_stop,color_start,color_stop)
+		else:
+			out+="%s0x%08x │ %s" % (color_start,i+start,color_stop)
 		for j in range(16):
 			if i+j < len(buf):
 				if type(buf) == bytes:
