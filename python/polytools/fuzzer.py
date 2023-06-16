@@ -16,8 +16,8 @@ def xor(key,data):
 def bit_flipper_X(data_in, pre_mask):
 	for bit_pos in reversed(range((len(data_in) * 8)-1)):
 		msg_hex_len = len(data_in)*2
-		for pre_mask in [0b1, 0b11]:
-			mask2 = to_bytes(pre_mask<<bit_pos, msg_hex_len)
+		for mask in pre_mask:
+			mask2 = to_bytes(mask<<bit_pos, msg_hex_len)
 			data = xor(mask2, data_in)
 			yield data
 
