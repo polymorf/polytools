@@ -1,10 +1,5 @@
 from polytools.crypto import xor
 
-def to_bytes(val, byte_len):
-	hex_val = hex(val).replace("0x","").replace("L","")
-	out_bytes_hex = ("0" * (byte_len - len(hex_val)) + hex_val)
-	return b"".fromhex(out_bytes_hex)
-
 def xor(key,data):
 	out=b""
 	for i,c in enumerate(data):
@@ -14,10 +9,10 @@ def xor(key,data):
 
 
 def bit_flipper_X(data_in, pre_mask):
-	for bit_pos in reversed(range((len(data_in) * 8)-1)):
-		msg_hex_len = len(data_in)*2
+	for bit_pos in reversed(range((len(data_in) * 8))):
 		for mask in pre_mask:
-			mask2 = to_bytes(mask<<bit_pos, msg_hex_len)
+			mask2 = (mask << bit_pos).to_bytes(len(data_in)+1, 'big')
+			mask2 = mask2[-len(data_in):]
 			data = xor(mask2, data_in)
 			yield data
 
