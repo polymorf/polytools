@@ -24,6 +24,6 @@
 	fflush(stdout);
 
 
-void hexdump(const void *data, int size, char *name, uint64_t start);
+void hexdump(const void *data, int size, const char *name, uint64_t start);
 
 #endif
